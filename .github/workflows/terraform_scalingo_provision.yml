@@ -16,13 +16,12 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Download Scalingo Terraform Provider (compatible GitHub Actions)
+      - name: Download Scalingo Terraform Provider (vérifié GitHub Actions)
         run: |
           mkdir -p ~/.terraform.d/plugins/registry.scalingo.com/scalingo/scalingo/0.3.0/linux_amd64
           curl -L -o ~/.terraform.d/plugins/registry.scalingo.com/scalingo/scalingo/0.3.0/linux_amd64/terraform-provider-scalingo \
-            https://github.com/kolok/terraform-provider-scalingo/releases/download/v0.3.0-fixed/terraform-provider-scalingo_0.3.0_linux_amd64
+            https://github.com/kolok/terraform-provider-scalingo/releases/download/v0.3.0-linux-fix/terraform-provider-scalingo_0.3.0_linux_amd64
           chmod +x ~/.terraform.d/plugins/registry.scalingo.com/scalingo/scalingo/0.3.0/linux_amd64/terraform-provider-scalingo
-
 
       - name: Affiche le contenu du dossier infra
         run: |

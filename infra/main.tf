@@ -18,7 +18,7 @@ variable "scalingo_token" {
 }
 
 resource "scalingo_app" "html_app" {
-  name   = "TerraformxScalingo"  # Mets le nom de ton app ici
+  name   = "TerraformxScalingo"
   region = "osc-fr1"
 }
 
