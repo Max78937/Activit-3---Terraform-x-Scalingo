@@ -1,4 +1,4 @@
-name: Terraform Scalingo Provision
+name: Terraform scalingo provision
 
 on:
   push:
