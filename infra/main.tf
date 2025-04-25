@@ -12,9 +12,6 @@ provider "scalingo" {
 }
 
 variable "scalingo_token" {
-  description = "Token API Scalingo"
-  type        = string
-  sensitive   = true
 }
 
 resource "scalingo_app" "html_app" {
