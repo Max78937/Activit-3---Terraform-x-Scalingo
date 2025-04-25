@@ -1,1 +1,0 @@
-# Activit-3---Terraform-x-Scalingo

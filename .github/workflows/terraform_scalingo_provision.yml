@@ -18,12 +18,14 @@ jobs:
 
       - name: Initialize Terraform
         run: terraform init
-        working-directory: infra
+        working-directory: .
 
       - name: Plan Terraform
-        run: terraform plan -input=false -no-color -var="scalingo_token=${{ secrets.SCALINGO_TOKEN }}"
-        working-directory: infra
+        run: terraform plan -var="scalingo_token=${{ secrets.SCALINGO_TOKEN }}"
+        working-directory: .
 
       - name: Apply Terraform
         run: terraform apply -auto-approve -var="scalingo_token=${{ secrets.SCALINGO_TOKEN }}"
-        working-directory: infra
+        working-directory: .
+        env:
+          SCALINGO_TOKEN: ${{ secrets.SCALINGO_TOKEN }}
