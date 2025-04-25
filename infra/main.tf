@@ -2,7 +2,7 @@ terraform {
   required_providers {
     scalingo = {
       source  = "registry.scalingo.com/scalingo/scalingo"
-      version = ">= 0.3.0"
+      version = "0.3.0"
     }
   }
 }
@@ -18,7 +18,7 @@ variable "scalingo_token" {
 }
 
 resource "scalingo_app" "html_app" {
-  name   = "TerraformxScalingo"
+  name   = "TerraformxScalingo"  # Mets le nom de ton app ici
   region = "osc-fr1"
 }
 
