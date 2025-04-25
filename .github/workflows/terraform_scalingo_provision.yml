@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main  
+    paths-ignore:
+    - '**.tfstate'
+    - '**.tfstate.backup'
+    - '.terraform/**'
+    - '.terraform.lock.hcl'
 
 jobs:
   terraform:
