@@ -3,7 +3,7 @@ name: Terraform Scalingo Provision
 on:
   push:
     branches:
-      - main
+      - prod
 
 jobs:
   terraform:
@@ -15,16 +15,17 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-        # with:
-        #   terraform_version: ">= 1.0.0"
 
       - name: Initialize Terraform
         run: terraform init
+        working-directory: infra
 
       - name: Plan Terraform
         run: terraform plan
+        working-directory: infra
 
       - name: Apply Terraform
         run: terraform apply -auto-approve
+        working-directory: infra
         env:
           SCALINGO_TOKEN: ${{ secrets.SCALINGO_TOKEN }}
