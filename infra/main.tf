@@ -8,17 +8,11 @@ terraform {
 }
 
 provider "scalingo" {
-  # Rien ici : SCALINGO_TOKEN est lu depuis les variables d’environnement
-}
-
-variable "scalingo_token" {
-  description = "Token API Scalingo (utilisé uniquement si besoin manuel)"
-  type        = string
-  sensitive   = true
+  # Le provider lit automatiquement le token via la variable d'environnement SCALINGO_TOKEN
 }
 
 resource "scalingo_app" "html_app" {
-  name   = "TerraformxScalingo"
+  name   = "TerraformxScalingo"  # Tu peux changer le nom si besoin
   region = "osc-fr1"
 }
 
