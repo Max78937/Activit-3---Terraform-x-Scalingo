@@ -16,7 +16,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Setup Go (pour compiler le provider)
+      - name: Setup Go (pour compiler le provider Scalingo)
         uses: actions/setup-go@v5
         with:
           go-version: '1.20'
@@ -41,10 +41,14 @@ jobs:
         run: terraform init
         working-directory: infra
 
-      - name: Plan Terraform (avec -var)
-        run: terraform plan -input=false -no-color -var="scalingo_token=${{ secrets.SCALINGO_TOKEN }}"
+      - name: Plan Terraform
+        run: |
+          export SCALINGO_TOKEN=${{ secrets.SCALINGO_TOKEN }}
+          terraform plan -input=false -no-color
         working-directory: infra
 
-      - name: Apply Terraform (avec -var)
-        run: terraform apply -auto-approve -var="scalingo_token=${{ secrets.SCALINGO_TOKEN }}"
+      - name: Apply Terraform
+        run: |
+          export SCALINGO_TOKEN=${{ secrets.SCALINGO_TOKEN }}
+          terraform apply -auto-approve
         working-directory: infra
