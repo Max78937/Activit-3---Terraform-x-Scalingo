@@ -43,12 +43,7 @@ resource "scalingo_app" "python_api" {
   name = "python-api-ynov"
 
   environment = {
-    PROJECT_DIR     = "server_python/api"
-    MYSQL_USER      = var.mysql_user
-    MYSQL_PASSWORD  = var.mysql_root_password
-    MYSQL_DATABASE  = var.mysql_database
-    MYSQL_HOST      = var.mysql_host
-    MYSQL_PORT      = tostring(var.mysql_port)
+    PROJECT_DIR = "server_python/api"
   }
 }
 
@@ -63,4 +58,14 @@ resource "scalingo_container_type" "web" {
   name   = "web"
   amount = 1
   size   = "S"
+}
+
+# Configuration du déploiement GitHub
+resource "scalingo_deployment" "github" {
+  app = scalingo_app.python_api.name
+  source = {
+    type = "github"
+    repository = "votre-compte/votre-repo"  # À remplacer par votre repo GitHub
+    branch     = "prod"
+  }
 }

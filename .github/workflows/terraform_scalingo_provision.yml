@@ -3,17 +3,19 @@ name: Terraform Scalingo Provision
 on:
   push:
     branches:
-      - main  
+      - main
     paths-ignore:
-    - '**.tfstate'
-    - '**.tfstate.backup'
-    - '.terraform/**'
-    - '.terraform.lock.hcl'
+      - '**.tfstate'
+      - '**.tfstate.backup'
+      - '.terraform/**'
+      - '.terraform.lock.hcl'
 
 jobs:
   terraform:
-    name: Terraform Provision
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - name: Checkout code
@@ -22,16 +24,17 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Initialize Terraform
+      - name: Terraform Init
         run: terraform init
-        working-directory: .
-
-      - name: Plan Terraform
-        run: terraform plan -var="scalingo_token=${{ secrets.SCALINGO_TOKEN }}"
-        working-directory: .
-
-      - name: Apply Terraform
-        run: terraform apply -auto-approve -var="scalingo_token=${{ secrets.SCALINGO_TOKEN }}"
-        working-directory: .
         env:
-          SCALINGO_TOKEN: ${{ secrets.SCALINGO_TOKEN }}
+          TF_VAR_scalingo_token: ${{ secrets.SCALINGO_TOKEN }}
+
+      - name: Terraform Plan
+        run: terraform plan
+        env:
+          TF_VAR_scalingo_token: ${{ secrets.SCALINGO_TOKEN }}
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        env:
+          TF_VAR_scalingo_token: ${{ secrets.SCALINGO_TOKEN }}
