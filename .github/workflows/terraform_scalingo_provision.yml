@@ -23,16 +23,23 @@ jobs:
             https://github.com/Scalingo/terraform-provider-scalingo/releases/download/v0.3.0/terraform-provider-scalingo_0.3.0_linux_amd64
           chmod +x ~/.terraform.d/plugins/registry.scalingo.com/scalingo/scalingo/0.3.0/linux_amd64/terraform-provider-scalingo
 
+      - name: Affiche le contenu du dossier infra
+        run: |
+          echo "Contenu de infra/"
+          ls -l infra
+          echo "--- main.tf ---"
+          cat infra/main.tf
+
       - name: Initialize Terraform
         run: terraform init
         working-directory: infra
 
-      - name: Plan Terraform
-        run: terraform plan
+      - name: Plan Terraform (verbose)
+        run: terraform plan -input=false -no-color
         working-directory: infra
 
       - name: Apply Terraform
         run: terraform apply -auto-approve
         working-directory: infra
         env:
-          SCALINGO_TOKEN: ${{ secrets.SCALINGO_TOKEN }}
+          TF_VAR_scalingo_token: ${{ secrets.SCALINGO_TOKEN }}
