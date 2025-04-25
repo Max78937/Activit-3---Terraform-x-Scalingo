@@ -1,4 +1,4 @@
-name: Terraform scalingo provision
+name: Terraform Scalingo Provision
 
 on:
   push:
@@ -16,39 +16,14 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Setup Go (pour compiler le provider Scalingo)
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.20'
-
-      - name: Compile Scalingo Terraform Provider
-        run: |
-          git clone https://github.com/Scalingo/terraform-provider-scalingo.git
-          cd terraform-provider-scalingo
-          git checkout v0.3.0
-          go build -o terraform-provider-scalingo
-          mkdir -p ~/.terraform.d/plugins/registry.scalingo.com/scalingo/scalingo/0.3.0/linux_amd64
-          mv terraform-provider-scalingo ~/.terraform.d/plugins/registry.scalingo.com/scalingo/scalingo/0.3.0/linux_amd64/
-
-      - name: Affiche le contenu du dossier infra
-        run: |
-          echo "Contenu de infra/"
-          ls -l infra
-          echo "--- main.tf ---"
-          cat infra/main.tf
-
       - name: Initialize Terraform
         run: terraform init
         working-directory: infra
 
       - name: Plan Terraform
-        run: |
-          export SCALINGO_TOKEN=${{ secrets.SCALINGO_TOKEN }}
-          terraform plan -input=false -no-color
+        run: terraform plan -input=false -no-color -var="scalingo_token=${{ secrets.SCALINGO_TOKEN }}"
         working-directory: infra
 
       - name: Apply Terraform
-        run: |
-          export SCALINGO_TOKEN=${{ secrets.SCALINGO_TOKEN }}
-          terraform apply -auto-approve
+        run: terraform apply -auto-approve -var="scalingo_token=${{ secrets.SCALINGO_TOKEN }}"
         working-directory: infra
