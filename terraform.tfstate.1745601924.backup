@@ -1,0 +1,33 @@
+{
+  "version": 4,
+  "terraform_version": "1.10.5",
+  "serial": 6,
+  "lineage": "669deef1-1a45-4e87-f4f3-9a109fb8626c",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "scalingo_container_type",
+      "name": "web",
+      "provider": "provider[\"registry.terraform.io/scalingo/scalingo\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "amount": 1,
+            "app": "python-api-ynov",
+            "id": "python-api-ynov:web",
+            "name": "web",
+            "size": "S"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "scalingo_app.python-api"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
